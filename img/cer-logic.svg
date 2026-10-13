@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 55 1200 425" font-family="Helvetica Neue, Arial, sans-serif">
+<rect width="1200" height="520" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#14141A"/></marker></defs>
+<g fill="none" stroke="#14141A" stroke-width="1.4">
+<rect x="30" y="70" width="266" height="150" rx="3"/>
+<path d="M296 145 H319" marker-end="url(#a)"/>
+<rect x="321" y="70" width="266" height="150" rx="3"/>
+<path d="M587 145 H610" marker-end="url(#a)"/>
+<rect x="612" y="70" width="266" height="150" rx="3"/>
+<path d="M878 145 H901" marker-end="url(#a)"/>
+<rect x="903" y="70" width="266" height="150" rx="3"/>
+</g>
+<text x="42" y="95" font-size="13" fill="#8A8A85">01</text>
+<text x="42" y="125" font-size="17" font-weight="600" fill="#14141A">Base circle</text>
+<text x="42" y="160" font-size="13" fill="#14141A">Circle</text>
+<text x="42" y="205" font-size="12" fill="#0A3CFF" letter-spacing="0.4">BASE RADIUS</text>
+<text x="333" y="95" font-size="13" fill="#8A8A85">02</text>
+<text x="333" y="125" font-size="17" font-weight="600" fill="#14141A">Layers</text>
+<text x="333" y="160" font-size="13" fill="#14141A">Series, Move Z</text>
+<text x="333" y="205" font-size="12" fill="#0A3CFF" letter-spacing="0.4">LAYERS · HEIGHT</text>
+<text x="624" y="95" font-size="13" fill="#8A8A85">03</text>
+<text x="624" y="125" font-size="17" font-weight="600" fill="#14141A">Divide</text>
+<text x="624" y="160" font-size="13" fill="#14141A">Divide Curve</text>
+<text x="624" y="205" font-size="12" fill="#0A3CFF" letter-spacing="0.4">DIV_COUNT</text>
+<text x="915" y="95" font-size="13" fill="#8A8A85">04</text>
+<text x="915" y="125" font-size="17" font-weight="600" fill="#14141A">Bulge wave</text>
+<text x="915" y="160" font-size="13" fill="#14141A">Sine wave,</text>
+<text x="915" y="178" font-size="13" fill="#14141A">Graph Mapper, Move</text>
+<text x="915" y="205" font-size="12" fill="#0A3CFF" letter-spacing="0.4">BULGE_STRENGTH</text>
+<g fill="none" stroke="#14141A" stroke-width="1.2">
+<g transform="translate(48.0 0)"><ellipse cx="115" cy="420" rx="50" ry="14"/></g>
+<g transform="translate(144.0 0)"><ellipse cx="310" cy="460" rx="45" ry="12"/><ellipse cx="310" cy="425" rx="45" ry="12"/><ellipse cx="310" cy="390" rx="45" ry="12"/><ellipse cx="310" cy="355" rx="45" ry="12"/></g>
+<g transform="translate(240.0 0)" fill="#14141A" stroke="none"><circle cx="460" cy="420" r="3"/><circle cx="475" cy="430" r="3"/><circle cx="505" cy="434" r="3"/><circle cx="535" cy="430" r="3"/><circle cx="550" cy="420" r="3"/><circle cx="535" cy="410" r="3"/><circle cx="505" cy="406" r="3"/><circle cx="475" cy="410" r="3"/></g>
+<g transform="translate(336.0 0)"><path d="M660 320 V 460" stroke="#B9B9B4" stroke-dasharray="4 4"/><path d="M660 320 C 690 340, 690 360, 660 378 C 635 392, 640 410, 670 425 C 700 440, 690 455, 660 460"/></g>
+</g></svg>

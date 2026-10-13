@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 50 1200 210" font-family="Helvetica Neue, Arial, sans-serif">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" fill="#14141A"/></marker></defs>
+<rect x="30.0" y="70" width="266.2" height="170" rx="3" fill="none" stroke="#14141A" stroke-width="1.4"/>
+<text x="42.0" y="95" font-size="13" fill="#8A8A85">01</text>
+<text x="42.0" y="125" font-size="17" font-weight="600" fill="#14141A">Measure</text>
+<text x="42.0" y="154" font-size="13" fill="#14141A">Light level</text>
+<text x="42.0" y="172" font-size="13" fill="#14141A">in lux</text>
+<text x="42.0" y="224" font-size="12" fill="#0A3CFF" letter-spacing="0.4">BH1750</text>
+<path d="M296.2 155 H319.2" stroke="#14141A" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="321.2" y="70" width="266.2" height="170" rx="3" fill="none" stroke="#14141A" stroke-width="1.4"/>
+<text x="333.2" y="95" font-size="13" fill="#8A8A85">02</text>
+<text x="333.2" y="125" font-size="17" font-weight="600" fill="#14141A">Set ISO</text>
+<text x="333.2" y="154" font-size="13" fill="#14141A">Film speed chosen</text>
+<text x="333.2" y="172" font-size="13" fill="#14141A">with a button</text>
+<text x="333.2" y="224" font-size="12" fill="#0A3CFF" letter-spacing="0.4">ISO BUTTON</text>
+<path d="M587.5 155 H610.5" stroke="#14141A" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="612.5" y="70" width="266.2" height="170" rx="3" fill="none" stroke="#14141A" stroke-width="1.4"/>
+<text x="624.5" y="95" font-size="13" fill="#8A8A85">03</text>
+<text x="624.5" y="125" font-size="17" font-weight="600" fill="#14141A">Compute</text>
+<text x="624.5" y="154" font-size="13" fill="#14141A">Lux converted to</text>
+<text x="624.5" y="172" font-size="13" fill="#14141A">exposure value</text>
+<text x="624.5" y="224" font-size="12" fill="#0A3CFF" letter-spacing="0.4">ARDUINO NANO</text>
+<path d="M878.8 155 H901.8" stroke="#14141A" stroke-width="1.4" marker-end="url(#a)"/>
+<rect x="903.8" y="70" width="266.2" height="170" rx="3" fill="none" stroke="#14141A" stroke-width="1.4"/>
+<text x="915.8" y="95" font-size="13" fill="#8A8A85">04</text>
+<text x="915.8" y="125" font-size="17" font-weight="600" fill="#14141A">Display</text>
+<text x="915.8" y="154" font-size="13" fill="#14141A">Aperture and shutter</text>
+<text x="915.8" y="172" font-size="13" fill="#14141A">pairs shown</text>
+<text x="915.8" y="224" font-size="12" fill="#0A3CFF" letter-spacing="0.4">ST7789 TFT</text>
+</svg>

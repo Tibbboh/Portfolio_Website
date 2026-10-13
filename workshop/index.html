@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="author" content="Zen Beattie">
+<meta name="copyright" content="Zen Beattie">
+<title>Workshop — Studio</title>
+<link rel="stylesheet" href="../css/style.css">
+<style>
+  .ws { padding: 5vh 5vw 10vh; }
+  .ws-bar { display: flex; gap: 18px; font-size: 13.5px; color: var(--muted); margin-bottom: 3vh; flex-wrap: wrap; }
+  .ws-bar button { font: inherit; background: none; border: 0; padding: 0; color: var(--muted); cursor: pointer; }
+  .ws-bar button[aria-pressed="true"], .ws-bar button:hover { color: var(--blue); }
+  .ws-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
+  @media (max-width: 1100px) { .ws-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (max-width: 700px) { .ws-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .ws-tile { position: relative; aspect-ratio: 1; background: var(--gray-box); border: 0; padding: 0; cursor: zoom-in; overflow: hidden; border-radius: 4px; }
+  .ws-tile img { width: 100%; height: 100%; object-fit: contain; display: block; transition: transform .3s ease; }
+  .ws-tile:hover img { transform: scale(1.04); }
+  .ws-tile .cap { position: absolute; left: 12px; bottom: 10px; right: 12px; text-align: left; font-size: 13px; color: var(--muted); }
+  .ws-tile:hover .cap, .ws-tile:focus-visible .cap { color: var(--blue); }
+  .ws-tile:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .ws-tile .wait { position: absolute; inset: 0; display: grid; place-items: center; font-size: 12px; color: var(--muted); }
+  .ws-empty { aspect-ratio: 1; border: 1px dashed var(--line); border-radius: 4px; display: grid; place-items: center; font-size: 12px; color: var(--muted); text-align: center; padding: 16px; }
+
+  .viewer { position: fixed; z-index: 50; background: var(--gray-box); border-radius: 4px; overflow: hidden;
+    transition: top .45s cubic-bezier(.2,.8,.2,1), left .45s cubic-bezier(.2,.8,.2,1), width .45s cubic-bezier(.2,.8,.2,1), height .45s cubic-bezier(.2,.8,.2,1); }
+  .viewer canvas { display: block; width: 100%; height: 100%; cursor: grab; }
+  .viewer canvas:active { cursor: grabbing; }
+  .viewer .v-head { position: absolute; top: 14px; left: 16px; right: 16px; display: flex; justify-content: space-between; align-items: baseline; gap: 16px; pointer-events: none; }
+  .viewer .v-title { font-size: 16px; color: var(--ink); }
+  .viewer .v-note { font-size: 12.5px; color: var(--muted); margin-top: 4px; max-width: 52ch; }
+  .viewer .v-close { pointer-events: auto; font: inherit; font-size: 13.5px; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 4px; padding: 6px 12px; cursor: pointer; }
+  .viewer .v-close:hover { color: var(--blue); }
+  .viewer .v-hint { position: absolute; left: 16px; bottom: 12px; font-size: 12px; color: var(--muted); pointer-events: none; }
+  .scrim { position: fixed; inset: 0; z-index: 40; background: var(--bg); opacity: 0; transition: opacity .35s ease; }
+  .scrim.on { opacity: .85; }
+
+  /* grain: a faint even layer everywhere, plus a denser layer that gathers around the object */
+  .grain { position: absolute; inset: 0; pointer-events: none; background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.95' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1.1 -.15'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>"); background-size: 180px 180px; }
+  .grain.base { opacity: .05; }
+  .ws-tile .grain.base { opacity: .03; }
+  .ws-tile .grain.near { opacity: .09 !important; }
+  .grain.near { opacity: .2;
+    -webkit-mask-image: radial-gradient(circle var(--gr, 40%) at var(--gx, 50%) var(--gy, 50%), #000 0, rgba(0,0,0,.6) 45%, transparent 100%);
+            mask-image: radial-gradient(circle var(--gr, 40%) at var(--gx, 50%) var(--gy, 50%), #000 0, rgba(0,0,0,.6) 45%, transparent 100%); }
+  @media (prefers-reduced-motion: reduce) { .viewer { transition: none; } .ws-tile img { transition: none; } }
+</style>
+</head>
+<body class="workshop-page">
+<!-- Zen Beattie -->
+<div class="wm" aria-hidden="true">Zen Beattie<br>Zen Beattie</div>
+<header>
+  <div class="logo-cell"><div class="logo-inner">
+    <a class="studio-link" href="../index.html">Studio</a>
+    <a class="page-label" href="./index.html">/Workshop</a>
+  </div></div>
+  <div class="spacer-a" aria-hidden="true"></div>
+  <div class="nav-cell"><div class="block-inner">
+    <a class="block-title block-link" href="./index.html">Workshop</a>
+    <span class="sub">/ Components</span><span class="sub">/ Models</span>
+  </div></div>
+  <div class="header-divider"></div>
+  <div class="expertise-cell"><div class="block-inner">
+    <a class="block-title block-link" href="https://www.instagram.com/zenbeattie/">References</a>
+    <span class="sub">/ Input</span><span class="sub">/ Influence</span>
+  </div></div>
+  <div class="spacer-b" aria-hidden="true"></div>
+  <div class="contact-cell">
+    <a class="contact-cell-inner" href="../about/index.html"><span class="corner">⌐</span>About</a>
+  </div>
+</header>
+
+<main class="ws">
+  <div class="ws-bar" role="group" aria-label="Filter">
+    <button type="button" data-f="all" aria-pressed="true">All</button>
+    <button type="button" data-f="Components" aria-pressed="false">/ Components</button>
+    <button type="button" data-f="Models" aria-pressed="false">/ Models</button>
+  </div>
+  <div class="ws-grid" id="grid"></div>
+</main>
+<footer class="site-foot" aria-hidden="true"></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/STLLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script>
+// Each file is one record. Adding a model = drop the .stl in /workshop/models and add a line here.
+var models = [
+  { name: "Hi-matic lens adapter", file: "models/himatic.stl.txt", group: "Components",
+    note: "Adapter for a Minolta Hi-matic lens element, Ø56.5 × 16.0 mm, M42×1 thread. Not yet printed.",
+    project: "../work/lens-mod/index.html" },
+  { name: "L35AF lens adapter", file: "models/l35af.stl.txt", group: "Components",
+    note: "Adapter for an L35AF lens element, Ø41.9 × 6.0 mm.",
+    project: "../work/lens-mod/index.html" },
+  { name: "AE-1 camera door", file: "models/ae1-door.stl.txt", group: "Components",
+    note: "Replacement door part for a Canon AE-1, 17.0 × 31.2 × 3.5 mm. Modeled in Rhino." },
+  { name: "F-91W slim housing", file: "models/f91w.stl.txt", group: "Components",
+    note: "Redesigned F-91W housing body, 33.2 × 38.4 × 7.0 mm.",
+    project: "../work/f91w/index.html" }
+];
+
+var grid = document.getElementById("grid");
+var css = getComputedStyle(document.documentElement);
+function token(n, f) { var v = css.getPropertyValue(n).trim(); return v || f; }
+var loader = new THREE.STLLoader();
+var geoms = {};
+
+// One offscreen renderer makes the still thumbnails, so the grid stays light.
+var thumbR = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true, alpha: true });
+thumbR.setSize(600, 600);
+thumbR.setPixelRatio(1);
+
+function scene(geom) {
+  var s = new THREE.Scene();
+  var mat = new THREE.MeshStandardMaterial({ color: 0xF4F4F1, roughness: 0.6, metalness: 0.05, side: THREE.DoubleSide });
+  var mesh = new THREE.Mesh(geom, mat);
+  s.add(mesh);
+  s.add(new THREE.HemisphereLight(0xffffff, 0x4a4a50, 0.55));
+  var d = new THREE.DirectionalLight(0xffffff, 0.85); d.position.set(1, 1.4, 1.2); s.add(d);
+  var d2 = new THREE.DirectionalLight(0xffffff, 0.12); d2.position.set(-1, -0.6, -1); s.add(d2);
+  return s;
+}
+function prep(geom) {
+  geom.computeVertexNormals();
+  geom.center();
+  geom.rotateX(-Math.PI / 2);
+  geom.computeBoundingSphere();
+  return geom;
+}
+function camFor(geom, aspect) {
+  var r = geom.boundingSphere.radius;
+  var cam = new THREE.PerspectiveCamera(32, aspect, r / 100, r * 100);
+  cam.position.set(r * 2.4, r * 1.9, r * 3.0);
+  cam.lookAt(0, 0, 0);
+  return cam;
+}
+
+function addTile(m) {
+  var b = document.createElement("button");
+  b.type = "button"; b.className = "ws-tile"; b.dataset.group = m.group;
+  b.innerHTML = '<span class="wait">Loading…</span><span class="grain base"></span><span class="grain near"></span><span class="cap">' + m.name + "</span>";
+  b.setAttribute("aria-label", "Open 3D view of " + m.name);
+  grid.appendChild(b);
+  // Models are stored as base64 text so this host can serve them; on a self-hosted site, plain .stl files load the same way.
+  fetch(m.file).then(function (r) { if (!r.ok) throw 0; return r.text(); }).then(function (t) {
+    var bin = atob(t.trim()), buf = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) buf[i] = bin.charCodeAt(i);
+    var g = loader.parse(buf.buffer);
+    geoms[m.file] = prep(g);
+    var s = scene(g), cam = camFor(g, 1);
+    thumbR.render(s, cam);
+    var img = new Image(); img.alt = m.name; img.src = thumbR.domElement.toDataURL("image/png");
+    b.querySelector(".wait").replaceWith(img);
+    b.style.setProperty("--gr", "38%");
+  }).catch(function () { b.querySelector(".wait").textContent = "Model failed to load"; });
+  b.addEventListener("click", function () { open(m, b); });
+}
+models.forEach(addTile);
+
+
+// Viewer: grows out of the clicked tile, then orbits.
+var viewer = null;
+function open(m, tile) {
+  var g = geoms[m.file]; if (!g || viewer) return;
+  var r = tile.getBoundingClientRect();
+  var scrim = document.createElement("div"); scrim.className = "scrim"; document.body.appendChild(scrim);
+  var v = document.createElement("div"); v.className = "viewer"; v.setAttribute("role", "dialog"); v.setAttribute("aria-label", m.name);
+  v.style.top = r.top + "px"; v.style.left = r.left + "px"; v.style.width = r.width + "px"; v.style.height = r.height + "px";
+  v.innerHTML = '<div class="v-head"><div><div class="v-title">' + m.name + '</div><div class="v-note">' + m.note +
+    (m.project ? ' <a href="' + m.project + '" style="pointer-events:auto;color:var(--blue)">Project page</a>' : "") +
+    '</div></div><button type="button" class="v-close">Close</button></div><div class="v-hint">Drag to orbit · scroll to zoom · right-drag to pan</div>';
+  document.body.appendChild(v);
+  var ren = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+  ren.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  v.insertBefore(ren.domElement, v.firstChild);
+  var gb = document.createElement("div"); gb.className = "grain base";
+  var gn = document.createElement("div"); gn.className = "grain near";
+  ren.domElement.after(gb, gn);
+  var s = scene(g), cam = camFor(g, r.width / r.height);
+  var ctl = new THREE.OrbitControls(cam, ren.domElement);
+  ctl.enableDamping = true; ctl.dampingFactor = 0.08;
+  var still = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  ctl.autoRotate = !still; ctl.autoRotateSpeed = 1.2;
+  ren.domElement.addEventListener("pointerdown", function () { ctl.autoRotate = false; });
+  function size() { var w = v.clientWidth, h = v.clientHeight; ren.setSize(w, h, false); cam.aspect = w / h; cam.updateProjectionMatrix(); }
+  var alive = true;
+  // Keep the dense grain centred on the object and scaled to its size on screen, through orbit, zoom and pan.
+  var o = new THREE.Vector3(), R = g.boundingSphere.radius;
+  function grain() {
+    var w = v.clientWidth, h = v.clientHeight;
+    o.set(0, 0, 0).project(cam);
+    var d = cam.position.length() || 1;
+    var rp = R / (d * Math.tan(cam.fov * Math.PI / 360)) * h / 2;
+    v.style.setProperty("--gx", ((o.x + 1) / 2 * w).toFixed(1) + "px");
+    v.style.setProperty("--gy", ((1 - o.y) / 2 * h).toFixed(1) + "px");
+    v.style.setProperty("--gr", (rp * 2.1).toFixed(1) + "px");
+  }
+  (function loop() { if (!alive) return; size(); ctl.update(); ren.render(s, cam); grain(); requestAnimationFrame(loop); })();
+  requestAnimationFrame(function () {
+    scrim.classList.add("on");
+    var pad = Math.max(16, Math.min(innerWidth, innerHeight) * 0.05);
+    v.style.top = pad + "px"; v.style.left = pad + "px";
+    v.style.width = (innerWidth - pad * 2) + "px"; v.style.height = (innerHeight - pad * 2) + "px";
+  });
+  function close() {
+    var rr = tile.getBoundingClientRect();
+    v.style.top = rr.top + "px"; v.style.left = rr.left + "px"; v.style.width = rr.width + "px"; v.style.height = rr.height + "px";
+    scrim.classList.remove("on");
+    setTimeout(function () { alive = false; ctl.dispose(); ren.dispose(); v.remove(); scrim.remove(); viewer = null; tile.focus(); }, still ? 0 : 450);
+    document.removeEventListener("keydown", esc);
+  }
+  function esc(e) { if (e.key === "Escape") close(); }
+  document.addEventListener("keydown", esc);
+  v.querySelector(".v-close").addEventListener("click", close);
+  scrim.addEventListener("click", close);
+  v.querySelector(".v-close").focus();
+  viewer = v;
+}
+
+// Filter
+document.querySelectorAll(".ws-bar button").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    var f = btn.dataset.f;
+    document.querySelectorAll(".ws-bar button").forEach(function (x) { x.setAttribute("aria-pressed", x === btn); });
+    grid.querySelectorAll("[data-group]").forEach(function (t) {
+      t.hidden = !(f === "all" || t.dataset.group === f || t.dataset.group === "all");
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="author" content="Zen Beattie">
+<meta name="copyright" content="Zen Beattie">
+<title>Self-Watering System — Studio</title>
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body class="project-page">
+<!-- Zen Beattie -->
+<div class="wm" aria-hidden="true">Zen Beattie<br>Zen Beattie</div>
+<header>
+  <div class="logo-cell"><div class="logo-inner">
+    <a class="studio-link" href="../../index.html">Studio</a>
+    <a class="page-label" href="../../index.html">/Index</a>
+  </div></div>
+  <div class="spacer-a" aria-hidden="true"></div>
+  <div class="nav-cell"><div class="block-inner">
+    <a class="block-title block-link" href="../../workshop/index.html">Workshop</a>
+    <span class="sub">/ Components</span><span class="sub">/ Models</span>
+  </div></div>
+  <div class="header-divider"></div>
+  <div class="expertise-cell"><div class="block-inner">
+    <a class="block-title block-link" href="https://www.instagram.com/zenbeattie/">References</a>
+    <span class="sub">/ Input</span><span class="sub">/ Influence</span>
+  </div></div>
+  <div class="spacer-b" aria-hidden="true"></div>
+  <div class="contact-cell">
+    <a class="contact-cell-inner" href="../../about/index.html"><span class="corner">⌐</span>About</a>
+  </div>
+</header>
+
+<main class="project">
+  <div class="p-head">
+    <h1 class="p-title"><span class="p-no">//</span>Self-Watering System</h1>
+    <div class="p-cats"><span>/ Hardware</span><span>/ Electronics</span></div>
+  </div>
+  <div class="p-grid">
+    <div class="p-figs">
+      <figure>
+        <img src="../../img/sw-sensor.jpg" alt="Capacitive moisture sensor in soil beside the pump's water line">
+      </figure>
+      <figure>
+        <img src="../../img/sw-wiring.jpg" alt="Wiring from the moisture sensors to an Arduino Uno and breadboard">
+      </figure>
+    </div>
+    <aside class="p-text">
+      <p class="p-problem">Automated watering system for indoor plants.</p>
+      <dl class="spec">
+        <dt>Status</dt><dd>Complete</dd>
+        <dt>Board</dt><dd>Arduino Uno</dd>
+        <dt>Sensing</dt><dd>Two capacitive moisture sensors, averaged</dd>
+        <dt>Output</dt><dd>One relay-controlled low-voltage pump</dd><dt>Logic</dt><dd>Water above 600, 10 s run, 2-day lockout</dd>
+        <dt>Ran</dt><dd>3 months</dd>
+        <dt>Code</dt><dd><a href="https://github.com/Tibbboh/Self_Watering">github.com/Tibbboh/Self_Watering</a></dd>
+      </dl>
+      <div class="p-body intro"><p>An Arduino Uno averages two capacitive moisture sensors across the soil body. I first tested the sensors in dry and wet conditions to establish a baseline. When conditions require watering, it runs a relay-controlled pump for 10 seconds, then locks out for two days so the water can soak in. It ran for three months with only the tank being refilled. Plant health metrics were not recorded, but the plant remained healthy during the test.</p></div>
+      <div class="p-body">
+        <pre>if (averageMoisture &gt; threshold) {   // 600: dry
+  if (!pumpActive) {
+    digitalWrite(relayPin, LOW);       // pump on
+    delay(motorRunDuration);           // 10 seconds
+    digitalWrite(relayPin, HIGH);      // pump off
+    lastPumpTime = millis();
+    pumpActive = true;                 // lockout on
+  }
+}
+if (pumpActive &amp;&amp; millis() - lastPumpTime &gt;= twoDays) {
+  pumpActive = false;                  // after 2 days
+}</pre>
+      </div>
+    </aside>
+  </div>
+</main>
+<footer class="site-foot" aria-hidden="true"></footer>
+</body>
+</html>
