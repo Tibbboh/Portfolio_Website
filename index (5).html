@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="author" content="Zen Beattie">
+<meta name="copyright" content="Zen Beattie">
+<title>Light Meter — Studio</title>
+<link rel="stylesheet" href="../../css/style.css">
+</head>
+<body class="project-page">
+<!-- Zen Beattie -->
+<div class="wm" aria-hidden="true">Zen Beattie<br>Zen Beattie</div>
+<header>
+  <div class="logo-cell"><div class="logo-inner">
+    <a class="studio-link" href="../../index.html">Studio</a>
+    <a class="page-label" href="../../index.html">/Index</a>
+  </div></div>
+  <div class="spacer-a" aria-hidden="true"></div>
+  <div class="nav-cell"><div class="block-inner">
+    <a class="block-title block-link" href="../../workshop/index.html">Workshop</a>
+    <span class="sub">/ Components</span><span class="sub">/ Models</span>
+  </div></div>
+  <div class="header-divider"></div>
+  <div class="expertise-cell"><div class="block-inner">
+    <a class="block-title block-link" href="https://www.instagram.com/zenbeattie/">References</a>
+    <span class="sub">/ Input</span><span class="sub">/ Influence</span>
+  </div></div>
+  <div class="spacer-b" aria-hidden="true"></div>
+  <div class="contact-cell">
+    <a class="contact-cell-inner" href="../../about/index.html"><span class="corner">⌐</span>About</a>
+  </div>
+</header>
+
+<main class="project">
+  <div class="p-head">
+    <h1 class="p-title"><span class="p-no">//</span>Light Meter</h1>
+    <div class="p-cats"><span>/ Hardware</span><span>/ Electronics</span></div>
+  </div>
+
+  <!-- 1. HEADER: fixed slots, written once -->
+  <div class="p-grid">
+    <div class="p-figs">
+      <figure class="wide">
+        <img src="../../img/lm-hero.jpg" alt="Render of the first light meter housing mounted on a twin-lens camera">
+      </figure>
+      <figure class="wide">
+        <img src="../../img/lm-path.svg" alt="Diagram of the signal path: measure lux, set ISO, compute exposure, display aperture and shutter pairs">
+      </figure>
+      <figure>
+        <img src="../../img/lm-parts.jpg" alt="Render of housing parts with component cavities">
+      </figure>
+    </div>
+    <aside class="p-text">
+      <p class="p-problem">A handheld meter that turns measured light into aperture and shutter pairs for use with medium format cameras.</p>
+      <dl class="spec">
+        <dt>Status</dt><dd>Prototype</dd>
+        <dt>Housings</dt><dd>Three versions</dd>
+        <dt>Sensor</dt><dd>BH1750 lux sensor</dd>
+        <dt>Display</dt><dd>ST7789 TFT</dd>
+        <dt>Board</dt><dd>Arduino Nano</dd>
+        <dt>Tools</dt><dd>Rhino, 3D scanning, 3D printing</dd>
+      </dl>
+      <div class="p-body intro"><p>A handheld light meter that turns measured light into aperture and shutter-speed pairs for shooting film. It’s built on an Arduino Nano with a BH1750 lux sensor and an ST7789 display. I went through three housings. The first wrapped around the camera, designed from a 3D scan of the body. I then moved to a standalone handheld unit. My understanding of LiPos was rudimentary at this stage, and the prior version ran off a somewhat rigged portable charger. The next iteration should carry a smaller rechargeable battery unit.</p></div>
+    </aside>
+  </div>
+
+  <!-- 2. LOG: grows over time, newest first -->
+  <div class="sec-label"><span>Process</span></div>
+  <ol class="log">
+        <li>
+      <figure><img src="../../img/lm-v1-build.jpg" alt="Standalone housing during assembly"></figure>
+      <div>
+        <h3>Standalone unit</h3>
+        <p class="num">Change: <b>camera-mounted → handheld</b></p>
+      </div>
+    </li>
+    <li>
+      <figure><img src="../../img/lm-v1-render.jpg" alt="Render of a housing wrapping the camera body"></figure>
+      <div>
+        <h3>Wrap-around housing</h3>
+      </div>
+    </li>
+    <li>
+      <figure><img src="../../img/lm-scan.jpg" alt="3D scan of the original camera"></figure>
+      <div>
+        <h3>Scanning the camera</h3>
+      </div>
+    </li>
+  </ol>
+
+  <!-- 3. RESULTS: added only when the project is finished -->
+</main>
+<footer class="site-foot" aria-hidden="true"></footer>
+</body>
+</html>
