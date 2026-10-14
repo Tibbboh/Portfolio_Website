@@ -1,24 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
 <meta charset="UTF-8">
+<title>Zen Beattie Studio</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Zen Beattie Studio">
+<meta property="og:description" content="A fabricator and designer interested in industrial design, architecture, mechanics and materials.">
+<meta property="og:image" content="./images/site/zen.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="description" content="A fabricator and designer interested in industrial design, architecture, mechanics and materials.">
+
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="author" content="Zen Beattie">
 <meta name="copyright" content="Zen Beattie">
-<title>Self-Watering System — Studio</title>
-<link rel="stylesheet" href="../../css/style.css">
-</head>
-<body class="project-page">
+<link rel="stylesheet" href="./css/style.css">
+<div class="home">
 <!-- Zen Beattie -->
 <div class="wm" aria-hidden="true">Zen Beattie<br>Zen Beattie</div>
 <header>
   <div class="logo-cell"><div class="logo-inner">
-    <a class="studio-link" href="../../index.html">Studio</a>
-    <a class="page-label" href="../../index.html">/Index</a>
+    <a class="studio-link" href="./index.html">Studio</a>
+    <span class="page-label grey">/Zen Beattie</span>
   </div></div>
   <div class="spacer-a" aria-hidden="true"></div>
   <div class="nav-cell"><div class="block-inner">
-    <a class="block-title block-link" href="../../workshop/index.html">Workshop</a>
+    <a class="block-title block-link" href="./workshop/index.html">Workshop</a>
     <span class="sub">/ Components</span><span class="sub">/ Models</span>
   </div></div>
   <div class="header-divider"></div>
@@ -28,52 +31,107 @@
   </div></div>
   <div class="spacer-b" aria-hidden="true"></div>
   <div class="contact-cell">
-    <a class="contact-cell-inner" href="../../about/index.html"><span class="corner">⌐</span>About</a>
+    <a class="contact-cell-inner" href="./about/index.html"><span class="corner">⌐</span>About</a>
   </div>
 </header>
 
-<main class="project">
-  <div class="p-head">
-    <h1 class="p-title"><span class="p-no">//</span>Self-Watering System</h1>
-    <div class="p-cats"><span>/ Hardware</span><span>/ Electronics</span></div>
-  </div>
-  <div class="p-grid">
-    <div class="p-figs">
-      <figure>
-        <img src="../../img/sw-sensor.jpg" alt="Capacitive moisture sensor in soil beside the pump's water line">
-      </figure>
-      <figure>
-        <img src="../../img/sw-wiring.jpg" alt="Wiring from the moisture sensors to an Arduino Uno and breadboard">
-      </figure>
+<main class="home-grid">
+  <section class="left idx-wrap">
+    <div class="loop" id="loop" aria-label="Projects"></div>
+  </section>
+  <div class="divider"></div>
+  <section class="right">
+    <div class="pv">
+    <div class="photo"><a id="preview-link"><img class="cover" id="preview" src="./img/hardware.jpg" alt=""></a></div>
+    <p class="preview-cap" id="preview-cap"></p>
     </div>
-    <aside class="p-text">
-      <p class="p-problem">Automated watering system for indoor plants.</p>
-      <dl class="spec">
-        <dt>Status</dt><dd>Complete</dd>
-        <dt>Board</dt><dd>Arduino Uno</dd>
-        <dt>Sensing</dt><dd>Two capacitive moisture sensors, averaged</dd>
-        <dt>Output</dt><dd>One relay-controlled low-voltage pump</dd><dt>Logic</dt><dd>Water above 600, 10 s run, 2-day lockout</dd>
-        <dt>Ran</dt><dd>3 months</dd>
-        <dt>Code</dt><dd><a href="https://github.com/Tibbboh/Self_Watering">github.com/Tibbboh/Self_Watering</a></dd>
-      </dl>
-      <div class="p-body intro"><p>An Arduino Uno averages two capacitive moisture sensors across the soil body. I first tested the sensors in dry and wet conditions to establish a baseline. When conditions require watering, it runs a relay-controlled pump for 10 seconds, then locks out for two days so the water can soak in. It ran for three months with only the tank being refilled. Plant health metrics were not recorded, but the plant remained healthy during the test.</p></div>
-      <div class="p-body">
-        <pre>if (averageMoisture &gt; threshold) {   // 600: dry
-  if (!pumpActive) {
-    digitalWrite(relayPin, LOW);       // pump on
-    delay(motorRunDuration);           // 10 seconds
-    digitalWrite(relayPin, HIGH);      // pump off
-    lastPumpTime = millis();
-    pumpActive = true;                 // lockout on
-  }
-}
-if (pumpActive &amp;&amp; millis() - lastPumpTime &gt;= twoDays) {
-  pumpActive = false;                  // after 2 days
-}</pre>
-      </div>
-    </aside>
-  </div>
+  </section>
 </main>
 <footer class="site-foot" aria-hidden="true"></footer>
-</body>
-</html>
+</div>
+
+<script>
+// Each project is one record. Adding work = adding a record; the layout never changes.
+// "no" is a permanent ID (order started). The array order is the display order.
+var projects = [
+  { no: "03", title: "SHED", tags: "Space · Hardware · Build", status: "complete", img: "shed-dwg-site.jpg", href: "./work/shed/index.html" },
+  { no: "12", title: "Lens Mod", tags: "Hardware · Drawing · Optics", status: "wip", img: "lens-mounted.jpg", href: "./work/lens-mod/index.html" },
+  { no: "11", title: "Yamaha SR500", tags: "Mechanical · Repair", status: "ongoing", img: "sr-cover.jpg", href: "./work/sr500/index.html" },
+  { no: "02", title: "Chair Study", tags: "Metal · Build", status: "complete", img: "chair.jpg", href: "./work/chair/index.html" },
+  { no: "06", title: "Ceramics / Grasshopper", tags: "Material · Computation", status: "complete", img: "cer-gh-grid.jpg", href: "./work/ceramics/index.html" },
+  { no: "13", title: "Print to Slip Cast", tags: "Material · Fabrication", status: "complete", img: "slip-cover.jpg", href: "./work/slip-cast/index.html" },
+  { no: "08", title: "Light Meter", tags: "Hardware · Electronics", status: "complete", img: "lm-cover.jpg", href: "./work/light-meter/index.html" },
+  { no: "14", title: "Self-Watering System", tags: "Hardware · Electronics", status: "complete", img: "sw-sensor.jpg", href: "./work/self-watering/index.html" },
+  { no: "15", title: "Grid Lamp", tags: "Lighting · Drawing", status: "complete", img: "lamp-cover.jpg", href: "./work/lamp/index.html" },
+  { no: "09", title: "Watch", tags: "Hardware · Drawing", status: "wip", img: "f91w-cover.jpg", href: "./work/f91w/index.html" },
+];
+var label = { wip: "In progress", ongoing: "Ongoing" };
+var loop = document.getElementById("loop");
+var prev = document.getElementById("preview"), cap = document.getElementById("preview-cap");
+
+var plink = document.getElementById("preview-link");
+function show(p, row) {
+  document.querySelectorAll(".idx-row.on").forEach(function (r) { r.classList.remove("on"); });
+  if (row) document.querySelectorAll('.idx-row[data-no="' + p.no + '"]').forEach(function (r) { r.classList.add("on"); });
+  prev.hidden = !p.img;
+  if (p.img) { prev.src = "./img/" + p.img; prev.alt = p.title; }
+  if (p.href) plink.href = p.href; else plink.removeAttribute("href");
+  cap.textContent = p.title + (p.img ? "" : " · no images yet");
+}
+// When nobody is hovering, the preview cycles through project images every 10 seconds.
+var hovering = false, mx = -1, my = -1;
+// Track the pointer so scrolling under a still cursor updates the highlight row by row.
+loop.addEventListener("mousemove", function (e) { mx = e.clientX; my = e.clientY; hovering = true; pick(); });
+loop.addEventListener("mouseleave", function () { hovering = false; mx = my = -1; });
+loop.addEventListener("scroll", function () { if (hovering) requestAnimationFrame(pick); });
+var lastRow = null;
+function pick() {
+  if (mx < 0) return;
+  var el = document.elementFromPoint(mx, my), row = el && el.closest(".idx-row");
+  if (!row || row === lastRow) return;
+  lastRow = row;
+  show(projects.filter(function (q) { return q.no === row.dataset.no; })[0], row);
+}
+var withImg = projects.filter(function (p) { return p.img; }), ci = 0;
+setInterval(function () {
+  if (hovering || withImg.length < 2) return;
+  ci = (ci + 1) % withImg.length;
+  prev.style.opacity = 0;
+  setTimeout(function () { show(withImg[ci], null); prev.style.opacity = 1; }, 600);
+}, 10000);
+
+// Three identical copies of the list. Scrolling stays in the middle copy;
+// when it drifts into the first or last copy it jumps by one copy's height, which looks seamless.
+function buildList(copy) {
+  var ol = document.createElement("ol"); ol.className = "idx";
+  if (copy !== 1) ol.setAttribute("aria-hidden", "true");
+  projects.forEach(function (p) {
+    var li = document.createElement("li");
+    var row = document.createElement(p.href ? "a" : "div");
+    if (p.href) row.href = p.href;
+    if (copy === 1) { if (!p.href) row.tabIndex = 0; } else { row.tabIndex = -1; }
+    row.dataset.no = p.no;
+    row.className = "idx-row";
+    var pill = "";
+    row.innerHTML = '<span class="idx-no">//</span><span class="idx-title">' + p.title + pill +
+      '</span><span class="idx-tags">' + p.tags + "</span>";
+    row.addEventListener("focus", function () { show(p, row); });
+    li.appendChild(row); ol.appendChild(li);
+  });
+  return ol;
+}
+[0, 1, 2].forEach(function (c) { loop.appendChild(buildList(c)); });
+
+function setH() { return loop.children[1].offsetHeight; }
+function wrap() {
+  var h = setH();
+  if (loop.scrollTop < h * 0.5) loop.scrollTop += h;
+  else if (loop.scrollTop > h * 1.5) loop.scrollTop -= h;
+}
+loop.addEventListener("scroll", wrap);
+window.addEventListener("resize", wrap);
+requestAnimationFrame(function () {
+  loop.scrollTop = setH();
+  show(projects[0], loop.children[1].querySelector(".idx-row"));
+});
+</script>
