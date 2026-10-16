@@ -9,9 +9,6 @@
 <link rel="stylesheet" href="../css/style.css">
 <style>
   .ws { padding: 5vh 5vw 10vh; }
-  .ws-bar { display: flex; gap: 18px; font-size: 13.5px; color: var(--muted); margin-bottom: 3vh; flex-wrap: wrap; }
-  .ws-bar button { font: inherit; background: none; border: 0; padding: 0; color: var(--muted); cursor: pointer; }
-  .ws-bar button[aria-pressed="true"], .ws-bar button:hover { color: var(--blue); }
   .ws-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; }
   @media (max-width: 1100px) { .ws-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
   @media (max-width: 700px) { .ws-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -73,11 +70,6 @@
 </header>
 
 <main class="ws">
-  <div class="ws-bar" role="group" aria-label="Filter">
-    <button type="button" data-f="all" aria-pressed="true">All</button>
-    <button type="button" data-f="Components" aria-pressed="false">/ Components</button>
-    <button type="button" data-f="Models" aria-pressed="false">/ Models</button>
-  </div>
   <div class="ws-grid" id="grid"></div>
 </main>
 <footer class="site-foot" aria-hidden="true"></footer>
@@ -88,9 +80,6 @@
 <script>
 // Each file is one record. Adding a model = drop the .stl in /workshop/models and add a line here.
 var models = [
-  { name: "Hi-matic lens adapter", file: "models/himatic.stl.txt", group: "Components",
-    note: "Adapter for a Minolta Hi-matic lens element, Ø56.5 × 16.0 mm, M42×1 thread.",
-    project: "../work/lens-mod/index.html" },
   { name: "L35AF lens adapter", file: "models/l35af.stl.txt", group: "Components",
     note: "Adapter for an L35AF lens element, Ø41.9 × 6.0 mm.",
     project: "../work/lens-mod/index.html" },
@@ -100,10 +89,7 @@ var models = [
     note: "Interior clasp part for a Canon Z155, 16.0 × 3.4 × 35.1 mm." },
   { name: "F-91W slim housing", file: "models/f91w.stl.txt", group: "Components",
     note: "Redesigned F-91W housing body, 33.2 × 38.4 × 7.0 mm.",
-    project: "../work/f91w/index.html" },
-  { name: "Grid lamp", file: "models/lamp.stl.txt", group: "Models",
-    note: "Grid lamp with gridded top baffle and splayed legs. 4 × 4 in body, 12 in tall.",
-    project: "../work/lamp/index.html" }
+    project: "../work/f91w/index.html" }
 ];
 
 var grid = document.getElementById("grid");
@@ -144,7 +130,7 @@ function camFor(geom, aspect) {
 
 function addTile(m) {
   var b = document.createElement("button");
-  b.type = "button"; b.className = "ws-tile"; b.dataset.group = m.group;
+  b.type = "button"; b.className = "ws-tile";
   b.innerHTML = '<span class="wait">Loading…</span><span class="grain base"></span><span class="grain near"></span><span class="cap">' + m.name + "</span>";
   b.setAttribute("aria-label", "Open 3D view of " + m.name);
   grid.appendChild(b);
@@ -223,17 +209,6 @@ function open(m, tile) {
   v.querySelector(".v-close").focus();
   viewer = v;
 }
-
-// Filter
-document.querySelectorAll(".ws-bar button").forEach(function (btn) {
-  btn.addEventListener("click", function () {
-    var f = btn.dataset.f;
-    document.querySelectorAll(".ws-bar button").forEach(function (x) { x.setAttribute("aria-pressed", x === btn); });
-    grid.querySelectorAll("[data-group]").forEach(function (t) {
-      t.hidden = !(f === "all" || t.dataset.group === f || t.dataset.group === "all");
-    });
-  });
-});
 </script>
 </body>
 </html>

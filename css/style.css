@@ -337,3 +337,22 @@ a.idx-row:hover .idx-title, a.idx-row.on .idx-title { color: var(--blue); }
   .home .right { padding: 16px; }
   .home .photo { width: min(100cqw, 100cqh * 17 / 11); }
 }
+
+/* sticky text column runs the length of the page, with a scroll-driven caption */
+@media (min-width: 901px) {
+  .project .p-grid { align-items: start; }
+  .project .p-text { position: sticky; top: 32px; align-self: start; }
+}
+.scroll-cap { font-size: 13.5px; color: var(--muted); margin: 26px 0 0; min-height: 1.4em; }
+.p-figs figure.stack { display: grid; gap: 18px; grid-column: span 2; }
+.p-figs figure.stack.two { grid-template-columns: 1fr 1fr; }
+/* each captioned group begins a new row so its caption triggers on its own */
+@media (min-width: 901px) { .p-figs figure[data-cap] { grid-column-start: 1; } }
+/* the text column runs the full height of the figures and an inner box sticks to
+   the foot of the screen, so the last line of text is visible from the top of the
+   page and its bottom edge follows you down */
+@media (min-width: 901px) {
+  .project .p-grid { align-items: stretch; }
+  .project .p-text { position: static; align-self: stretch; }
+  .project .p-text-in { position: sticky; top: 32px; }
+}
